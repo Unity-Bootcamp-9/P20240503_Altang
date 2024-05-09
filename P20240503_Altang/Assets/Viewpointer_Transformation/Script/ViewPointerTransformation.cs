@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ViewPointerTransformation : MonoBehaviour
 {
-
     [SerializeField]
     private List<GameObject> Cameras;
 
