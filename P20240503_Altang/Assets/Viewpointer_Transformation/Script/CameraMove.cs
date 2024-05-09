@@ -5,31 +5,28 @@ using UnityEngine.InputSystem;
 
 public class CameraMove : MonoBehaviour
 {
-    private float xRotate, xRotateMove;
-    public float rotateSpeed = 500.0f;
 
+    public float sensitivity = 300f; // 마우스 감도
+
+    float xRotation = 0.0f;
+
+    void Start()
+    {
+        // 커서 고정 및 숨기기
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void Update()
     {
+        // 마우스 입력 받기
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
-        //xRotateMove = -Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed;
+        // 수직 회전(상하 이동)
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        float mouseY = -Input.GetAxis("Mouse Y");
-        float rotationAmount = mouseY * Time.deltaTime * rotateSpeed;
-        float newRotation = transform.eulerAngles.x + rotationAmount;
-
-        newRotation = Mathf.Clamp(newRotation, -70f, 70f);
-        
-        if(newRotation < 0)
-        {
-            newRotation += 360;
-        }
-
-         xRotate = transform.eulerAngles.x + xRotateMove;
-         xRotate = Mathf.Clamp(xRotate, -300f, 300f);
-        //transform.rotation = Quaternion.Euler(newRotation, transform.eulerAngles.y, 0f);
-        transform.localRotation = Quaternion.Euler(newRotation, 360, 360);
-        
+        // 카메라 회전 적용
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
-
 }
+
