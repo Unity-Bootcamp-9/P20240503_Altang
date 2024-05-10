@@ -21,6 +21,11 @@ public class CameraMove : MonoBehaviour
         // 마우스 입력 받기
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
+
+        /*        mouseY = transform.rotation.y + mouseY;
+                xRotation = Mathf.Clamp(mouseY, -90f, 90f);*/
+
+
         // 수직 회전(상하 이동)
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
